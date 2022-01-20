@@ -9,5 +9,7 @@ git push
 
 
 ========================
+ssh-keygen
+ls -pal ~/.ssh
+clip <~/.ssh/id_rsa.pub
 
-git add .
