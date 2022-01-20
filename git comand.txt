@@ -1,8 +1,10 @@
 git branch -a
 git checkout main
+git reset --hard FETCH_HEAD
 git fetch origin
 git pull
 git add .
+git status
 git commit -m "message"
 git push
 
