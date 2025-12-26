@@ -17,6 +17,9 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ls -pal ~/.ssh
 clip <~/.ssh/id_rsa.pub
 
+
+=======================================================================
+
 https://docs.conda.io/en/latest/miniconda.html
 https://code.visualstudio.com/docs/?dv=win
 https://git-scm.com/download/win
@@ -25,7 +28,35 @@ https://git-scm.com/download/win
 
 https://discuss.codecademy.com/t/setting-up-conda-in-git-bash/534473
 
+======================================== Git init push, V1, V2 ======================================
 
+1. Initialize Git inside your project
+cd your_project/
+git init
+git add .
+git commit -m "MVP Version 1 stable"
+
+2. Create a GitHub repo and push
+git remote add origin <repo-url>
+git branch -M main
+git push -u origin main
+
+
+Now your v1 is safely stored.
+
+🔥 Create a Branch for Version 2 Work
+
+So Version-1 stays intact, Version-2 can evolve safely.
+
+git checkout -b version2-dev
+
+
+Modify, rewrite, experiment freely.
+
+If V2 breaks badly → just switch back anytime:
+
+git checkout main   # returns to Version 1
+===========================================================================================================
 
 ------------------
 
