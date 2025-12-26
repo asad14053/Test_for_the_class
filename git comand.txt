@@ -75,7 +75,15 @@ output/
 .vscode/
 ipynb_checkpoints/" > .gitignore
 
+=================================== make git subfolder flat =======================================
 
+rm -rf submodule1/.git
+rm -rf submodule2/.git
+git add .
+git commit -m "Integrated components, removed internal git repos"
+
+
+==========================================================================================================
 ------------------
 
 
