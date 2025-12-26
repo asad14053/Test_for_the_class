@@ -56,7 +56,25 @@ Modify, rewrite, experiment freely.
 If V2 breaks badly → just switch back anytime:
 
 git checkout main   # returns to Version 1
-===========================================================================================================
+=============================================Create Git ignore==============================================================
+
+touch .gitignore
+echo "__pycache__/
+*.pyc
+venv/
+.env/
+data/
+datasets/
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.safetensors
+logs/
+output/
+.vscode/
+ipynb_checkpoints/" > .gitignore
+
 
 ------------------
 
