@@ -84,7 +84,50 @@ git commit -m "Integrated components, removed internal git repos"
 
 
 ==========================================================================================================
-------------------
+------------------ Dettach VS code from Server GPU
+
+✅ Best Practice (Recommended): tmux
+This is the gold standard for remote ML training.
+Start a persistent session
+
+tmux new -s train
+
+Run your training inside tmux:
+
+CUDA_VISIBLE_DEVICES=0,1 torchrun train.py ...
+
+Detach safely (job keeps running)
+Press:
+Ctrl + b, then d
+
+You can now:
+•	Close VS Code
+•	Lose internet
+•	Shut your laptop
+Training will continue.
+
+Reattach later
+
+tmux attach -t train
+
+Useful tmux commands
+
+tmux ls                 # list sessions
+tmux kill-session -t train
+
+________________________________________
+✅ Alternative: screen
+Older but works.
+screen -S train
+# run training
+Ctrl + a, then d        # detach
+screen -r train         # reattach
+
+
+
+
+
+==========================================================================================================
 
 
 from cgi import print_environ_usage
