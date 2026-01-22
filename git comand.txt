@@ -41,6 +41,12 @@ git remote add origin <repo-url>
 git branch -M main
 git push -u origin main
 
+===============================================================================================================
+
+Uncommit (keep changes in your working tree):
+
+git reset --mixed HEAD~1
+
 ============================================== Create a test branch =============================================
 Now your v1 is safely stored.
 
