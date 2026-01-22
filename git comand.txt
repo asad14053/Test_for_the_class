@@ -144,6 +144,76 @@ Modify, rewrite, experiment freely.
 If V2 breaks badly → just switch back anytime:
 
 git checkout main   # returns to Version 1
+
+======================================================================== push failed because big files are already in your commit ==================
+
+Case 1: big files are only in your last commit(s) and not pushed
+
+This is the common case. Fix by removing them from the commit and recommitting.
+
+Identify what big files are staged/committed recently:
+
+git show --stat --oneline HEAD
+git diff --name-only HEAD~1..HEAD
+
+
+Uncommit (keep changes in your working tree):
+
+git reset --mixed HEAD~1
+
+
+Remove the big files from git tracking (but keep them on disk), then commit again:
+
+# example: if a file/folder was accidentally added
+git rm -r --cached data datasets output logs 2>/dev/null || true
+# or remove specific files
+# git rm --cached path/to/bigfile.zip
+
+git add .
+git commit -m "Clean commit (exclude large artifacts)"
+git push
+
+
+If the big file is not under those ignored directories (maybe a .zip or .mp4 somewhere), remove it specifically with git rm --cached <path>.
+
+Case 2: big files exist deeper in history OR you already pushed some giant commit
+
+Then you must rewrite history to purge them, otherwise your repo will stay huge and pushes will keep failing.
+
+Best tool: git filter-repo (recommended)
+
+Install:
+
+pip install git-filter-repo
+
+
+Find the biggest blobs first (so we know what to purge):
+
+git rev-list --objects --all \
+| git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
+| awk '$1=="blob"{print $2,$3,$4}' \
+| sort -k2 -n \
+| tail -n 30
+
+
+If you confirm they’re things you don’t want in git (models/data/zips), purge by path/glob:
+
+git filter-repo \
+  --path data --path datasets --path output --path logs \
+  --path-glob '*.pt' --path-glob '*.pth' --path-glob '*.ckpt' \
+  --path-glob '*.bin' --path-glob '*.safetensors' --path-glob '*.whl' \
+  --invert-paths
+
+
+Force-push rewritten history:
+
+git push --force --all
+git push --force --tags
+
+
+This permanently removes those large files from Git history.
+
+=====================================================================================================================
 =============================================Create Git ignore==============================================================
 
 touch .gitignore
