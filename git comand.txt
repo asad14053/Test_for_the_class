@@ -215,9 +215,7 @@ This permanently removes those large files from Git history.
 
 =====================================================================================================================
 =============================================Create Git ignore==============================================================
-
-touch .gitignore
-echo "__pycache__/
+__pycache__/
 *.pyc
 venv/
 .env/
@@ -227,12 +225,19 @@ datasets/
 *.pt
 *.ckpt
 *.bin
-*.whl
 *.safetensors
+*.whl
 logs/
 output/
 .vscode/
-ipynb_checkpoints/" > .gitignore
+ipynb_checkpoints/
+scripts/cache_dir/
+# HuggingFace caches
+.cache/
+**/.cache/
+cache_dir/
+hf_cache/
+wandb/
 
 =================================== make git subfolder flat =======================================
 
